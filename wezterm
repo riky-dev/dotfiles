@@ -1,15 +1,38 @@
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
+local mux = wezterm.mux
+local act = wezterm.action
 
 -- ==========================================
 -- Modern & Minimal Aesthetics
 -- ==========================================
+
+config = {
+  
+  -- Cursor
+  default_cursor_style = 'BlinkingBar',
+  cursor_blink_ease_in = 'Constant',
+  cursor_blink_ease_out = 'Constant',
+  animation_fps = 60,
+
+  -- Scrolling
+  scrollback_lines = 10000,
+
+  -- Visual Bell
+  visual_bell = {
+    fade_in_function = 'EaseIn',
+    fade_in_duration_ms = 75,
+    fade_out_function = 'EaseOut',
+    fade_out_duration_ms = 150,
+  }
+}
 
 -- Sleek modern dark theme
 config.color_scheme = 'Catppuccin Mocha'
 
 -- Transparency & Blur
 config.window_background_opacity = 0.92
+config.macos_window_background_blur = 30
 
 -- Subtle, modern neon/glow gradient background
 config.window_background_gradient = {
@@ -27,9 +50,6 @@ config.window_background_gradient = {
 config.font = wezterm.font('JetBrains Mono')
 config.font_size = 14.0
 
--- Custom glowing cursor styling
-config.default_cursor_style = 'BlinkingBar'
-
 -- Hide title bar (top bar) completely, keeping only window resize borders
 config.window_decorations = 'RESIZE'
 
@@ -40,21 +60,16 @@ config.window_frame = {
 }
 
 -- Balanced window margins for the terminal content
-config.window_padding = {
-  left = 12,
-  right = 12,
-  top = 12,
-  bottom = 12,
-}
+config.window_padding = {left = 12, right = 12, top = 12, bottom = 12 }
 
 -- Minimal tab bar configuration (functioning as status line)
 config.use_fancy_tab_bar = false
 config.show_new_tab_button_in_tab_bar = false
 config.tab_bar_at_bottom = false
+config.hide_tab_bar_if_only_one_tab = true
 
--- We hide the tab bar completely because you're using Starship to show directory/branch.
--- Change this back to true if you ever want WezTerm's top status line back.
-config.enable_tab_bar = false
+-- Hide the tab bar if we're using starship to show directory/branch.
+config.enable_tab_bar = true
 
 -- Custom styling for tab bar and cursor to blend perfectly into the window background
 config.colors = {
@@ -78,6 +93,25 @@ config.colors = {
     },
   },
 }
+
+config.keys = {                                                                            
+  -- Rebind OPT-Left, OPT-Right as ALT-b, ALT-f respectively to match Terminal.app behavior
+  {                                                  
+    key = 'LeftArrow',                               
+    mods = 'OPT',                                    
+    action = act.SendKey {                           
+      key = 'b',                                     
+      mods = 'ALT',                                  
+    },                                               
+  },                                                 
+  {                                                  
+    key = 'RightArrow',                              
+    mods = 'OPT',                                    
+    action = act.SendKey { key = 'f', mods = 'ALT' },
+  },                                                 
+}
+
+config.adjust_window_size_when_changing_font_size = false
 
 -- ==========================================
 -- Status Line: PWD & Git Branch Integration
