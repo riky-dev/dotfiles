@@ -55,7 +55,7 @@ config.window_decorations = 'RESIZE'
 
 -- Add top padding above the tab/status bar (rendered as a colored top border)
 config.window_frame = {
-  border_top_height = '10px',
+  border_top_height = '0px',
   border_top_color = '#241b35', -- Matches the glowing purple top of the gradient background
 }
 
