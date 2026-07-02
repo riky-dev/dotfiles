@@ -68,8 +68,8 @@ config.show_new_tab_button_in_tab_bar = false
 config.tab_bar_at_bottom = false
 config.hide_tab_bar_if_only_one_tab = true
 
--- Hide the tab bar if we're using starship to show directory/branch.
-config.enable_tab_bar = true
+-- Disable the Wezterm tab bar; the tmux status bar is used instead.
+config.enable_tab_bar = false
 
 -- Custom styling for tab bar and cursor to blend perfectly into the window background
 config.colors = {
