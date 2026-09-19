@@ -1,0 +1,8 @@
+Vitals@CoreCoding.com
+just-perfection-desktop@just-perfection
+clipboard-indicator@tudmotu.com
+trayIconsReloaded@selfmade.pl
+caffeine@patapon.info
+aztaskbar@aztaskbar.gitlab.com
+this.simple-indication-of-workspaces@azate.email
+apps-menu@gnome-shell-extensions.gcampax.github.com
