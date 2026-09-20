@@ -30,21 +30,19 @@ config = {
 -- Sleek modern dark theme
 config.color_scheme = 'Catppuccin Mocha'
 
--- Transparency & Blur
-config.window_background_opacity = 0.92
-config.macos_window_background_blur = 30
+local is_macos = wezterm.target_triple:find('apple') ~= nil
+local is_linux = wezterm.target_triple:find('linux') ~= nil
 
--- Subtle, modern neon/glow gradient background
-config.window_background_gradient = {
-  orientation = 'Vertical',
-  colors = {
-    '#241b35', -- Very subtle deep purple/mauve glow at the top
-    '#1e1e2e', -- Catppuccin Mocha base color in the middle
-    '#11111b', -- Deep crust color at the bottom
-  },
-  interpolation = 'Linear',
-  blend = 'Oklab',
-}
+-- Shared look: black transparent background, no gradient
+config.window_background_gradient = nil
+local bg_color = '#000000'
+
+if is_macos then
+  config.window_background_opacity = 0.80
+  config.macos_window_background_blur = 30
+elseif is_linux then
+  config.window_background_opacity = 0.80
+end
 
 -- High quality font configuration
 config.font = wezterm.font('JetBrains Mono')
@@ -53,10 +51,16 @@ config.font_size = 14.0
 -- Hide title bar (top bar) completely, keeping only window resize borders
 config.window_decorations = 'RESIZE'
 
--- Add top padding above the tab/status bar (rendered as a colored top border)
+-- Thin, non-intrusive window border (pairs with black transparent bg)
 config.window_frame = {
-  border_top_height = '0px',
-  border_top_color = '#241b35', -- Matches the glowing purple top of the gradient background
+  border_left_width = '1px',
+  border_right_width = '1px',
+  border_top_height = '1px',
+  border_bottom_height = '1px',
+  border_left_color = '#333333',
+  border_right_color = '#333333',
+  border_top_color = '#333333',
+  border_bottom_color = '#333333',
 }
 
 -- Balanced window margins for the terminal content
@@ -73,6 +77,7 @@ config.enable_tab_bar = false
 
 -- Custom styling for tab bar and cursor to blend perfectly into the window background
 config.colors = {
+  background = bg_color,
   cursor_bg = '#89dceb', -- Vibrant sky blue/teal glow
   cursor_fg = '#11111b',
   tab_bar = {
@@ -94,22 +99,21 @@ config.colors = {
   },
 }
 
-config.keys = {                                                                            
-  -- Rebind OPT-Left, OPT-Right as ALT-b, ALT-f respectively to match Terminal.app behavior
-  {                                                  
-    key = 'LeftArrow',                               
-    mods = 'OPT',                                    
-    action = act.SendKey {                           
-      key = 'b',                                     
-      mods = 'ALT',                                  
-    },                                               
-  },                                                 
-  {                                                  
-    key = 'RightArrow',                              
-    mods = 'OPT',                                    
+config.keys = {}
+
+-- macOS: match Terminal.app word-jump with Option+Left/Right
+if is_macos then
+  table.insert(config.keys, {
+    key = 'LeftArrow',
+    mods = 'OPT',
+    action = act.SendKey { key = 'b', mods = 'ALT' },
+  })
+  table.insert(config.keys, {
+    key = 'RightArrow',
+    mods = 'OPT',
     action = act.SendKey { key = 'f', mods = 'ALT' },
-  },                                                 
-}
+  })
+end
 
 config.adjust_window_size_when_changing_font_size = false
 
