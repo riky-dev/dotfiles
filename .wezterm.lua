@@ -8,7 +8,6 @@ local act = wezterm.action
 -- ==========================================
 
 config = {
-  
   -- Cursor
   default_cursor_style = 'BlinkingBar',
   cursor_blink_ease_in = 'Constant',
@@ -30,8 +29,14 @@ config = {
 -- Sleek modern dark theme
 config.color_scheme = 'Catppuccin Mocha'
 
+local is_windows = wezterm.target_triple:find('windows') ~= nil
 local is_macos = wezterm.target_triple:find('apple') ~= nil
 local is_linux = wezterm.target_triple:find('linux') ~= nil
+
+if is_windows then
+  config.default_prog = { 'C:/Program Files (x86)/Git/bin/bash.exe', '--login', '-i' }
+  config.default_cwd = 'C:/Users/riky/Desktop'
+end
 
 -- Shared look: black transparent background, no gradient
 config.window_background_gradient = nil
