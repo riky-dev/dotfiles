@@ -37,11 +37,9 @@ local is_linux = wezterm.target_triple:find('linux') ~= nil
 config.window_background_gradient = nil
 local bg_color = '#000000'
 
+config.window_background_opacity = 0.80
 if is_macos then
-  config.window_background_opacity = 0.80
   config.macos_window_background_blur = 30
-elseif is_linux then
-  config.window_background_opacity = 0.80
 end
 
 -- High quality font configuration
