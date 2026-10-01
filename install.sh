@@ -32,6 +32,7 @@ link_file "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
 link_file "$DOTFILES_DIR/.tmux.conf" "$HOME/.tmux.conf"
 link_file "$DOTFILES_DIR/.wezterm.lua" "$HOME/.wezterm.lua"
 link_file "$DOTFILES_DIR/.bash_aliases" "$HOME/.bash_aliases"
+link_file "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 link_file "$DOTFILES_DIR/starship.toml" "$HOME/.config/starship.toml"
 
 # GNOME settings loader option
