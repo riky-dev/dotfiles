@@ -1,0 +1,15 @@
+# macOS utility apps
+cask "stats"
+cask "alt-tab"
+cask "arc"
+cask "blip"
+cask "coteditor"
+cask "obsidian"
+cask "wezterm"
+cask "raycast"
+cask "scroll-reverser"
+cask "rectangle"
+
+# The default Stretchly cask is disabled; use the maintainer's tap.
+tap "hovancik/stretchly"
+cask "hovancik/stretchly/stretchly"
